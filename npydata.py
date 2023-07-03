@@ -3,8 +3,8 @@ from osgeo import gdal
 import os
 def npgget():
     # 定义文件夹和txt文件路径
-    folder_path = 'text3'
-    txt_file = 'txt/新建文本文档.txt'
+    folder_path = 'text5'
+    txt_file = 'txt/新建文本文档296.txt'
 
     # 获取文件夹中的所有tif文件
     input_files = [os.path.join(folder_path, f) for f in os.listdir(folder_path) if f.endswith(".tif")]
@@ -27,20 +27,15 @@ def npgget():
     # 循环读取每个栅格数据文件
     for i, file_name in enumerate(file_list):
         file_path = os.path.join(folder_path, file_name)
-
-
         # 打开栅格数据文件
         dataset = gdal.Open(input_files[i])
-
         # 获取栅格数据信息
         rows = dataset.RasterYSize
         cols = dataset.RasterXSize
         bands = dataset.RasterCount
-
         # 初始化数据集
         if data is None:
             data = np.zeros((len(file_list), rows, cols, bands), dtype=np.float32)
-
         # 读取栅格数据并存入数据集
         for j in range(bands):
             band = dataset.GetRasterBand(j + 1)
@@ -54,4 +49,5 @@ def npgget():
 
     # 保存数据集和标签为npy文件
     np.save(npy_file, {'data': data, 'labels': labels})
+npgget()
 
