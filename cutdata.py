@@ -1,14 +1,6 @@
 # -*- coding: utf-8 -*-
 import arcpy
 def cut(point_file,raster_file):
-    # arcpy.CheckOutExtension('Spatial')
-    # arcpy.env.workspace = r"D:\user\1"
-
-    # 输入点图层和栅格图层
-    # point_file = r"text1\point3.lyr"
-    #
-    # raster_file = r"text2\raster.tif"
-
     # 读取点图层和栅格图层
     point_layer = arcpy.mapping.Layer(point_file)
     raster_layer = arcpy.Raster(raster_file)
@@ -50,7 +42,10 @@ def cut(point_file,raster_file):
                                                  arcpy.Point(extent.XMin, extent.YMax)]),
                                     spatial_ref)
 
-            out_raster_dataset = out_path + "\\" + out_name + str(111+i)+".tif"
+            out_raster_dataset = out_path + "\\" + out_name + str(i)+".tif"
             # 提取栅格数据并保存输出
             subset_raster = arcpy.sa.ExtractByMask(raster_layer, polygon)
             subset_raster.save(out_raster_dataset)
+point_file='E:\\AI\\卷积模块\\text1\\侵蚀沟沟头148.lyr'
+raster_file='E:\\AI\\卷积模块\\text2\\raster125.tif'
+cut(point_file,raster_file)
